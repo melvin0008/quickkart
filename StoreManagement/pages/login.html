@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Retail Inventory Manager Demo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="loginBg">
+
+    <div class="container">
+        <div class="row">
+        <div class="alert alert-warning fade in" style="display:none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <span id="msg"></span>
+        </div>
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Login</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Customer Number" name="email" type="email" id="cusNum" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Customer Key" name="password" type="password" id="cusKey" value="">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <a  class="btn btn-lg btn-success btn-block" id="login">Login</a> <!-- href="index.html" -->
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+    <script>
+
+    
+
+
+    $('#login').on('click',function(obj,evt){
+        // Get a database reference to our posts
+        var ref = new Firebase("https://quickcart.firebaseio.com/Store");
+        // Attach an asynchronous callback to read the data at our posts reference
+        ref.on("value", function(snapshot) {
+          
+          var cusNum = $('#cusNum').val();
+          var cusKey = $('#cusKey').val();
+          var passhash = CryptoJS.MD5(cusKey);
+
+          var obj = snapshot.val();
+          fb_cusNum = Object.keys(obj)[0];
+
+          if(fb_cusNum == cusNum){
+                if ( obj[fb_cusNum]['hash'] == passhash.toString() ){
+                    storeName = obj[fb_cusNum]['name'];
+                    console.log('Customer is authenticated');
+                    window.location.href = 'index.html';
+                }
+                else{
+                    $('.alert').css('display','block');
+                    $('.alert').find('span').html('Passwords didnt match');
+                    // console.log('Password didnt match');
+                }
+          }else{
+            $('.alert').css('display','block');
+            $('.alert').find('span').html('Login Id was incorrect');                    
+            //console.log('Login Id was incorrect');
+          }
+
+        }, function (errorObject) {
+          console.log("The read failed: " + errorObject.code);
+        });
+   });
+
+    //authentication
+
+
+        // var uam = [
+        //     { "id" : "dart@retail.com", "appName" : "https://quickcart.firebaseio.com/" , "storeName": "Dart Stores" , "address":  "121 Williamson Avenue | Amherst | NY 14213"},
+        //     { "id":  "polymer@retail.com", "appName" : "https://quickcart.firebaseio.com/" ,"storeName": "Polymer Stores", "address": "222 Frost Avenue | Buffalo | NY 14114"}
+        // ];
+
+        // var  login = $('#login').on('click',function(obj,evt){
+        //     var loginId = $('#loginId').val();
+        //     var storeInfo  = _.filter(uam,function(obj){ return obj.id == loginId; });
+        //     storeName    = storeInfo.storeName;
+        //     storeApp     = storeInfo.appName;
+        //     storeAddress = storeInfo.address;       
+        // });
+    </script>
+</body>
+
+</html>
