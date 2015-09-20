@@ -1,0 +1,34 @@
+<ion-view ng-controller="scanBarcodeController as scanCntrl" view-title="Shopping List">
+  <ion-content>
+	  <ul class="list">
+
+		  <li class="item" ng-repeat="item in scanCntrl.items">
+		     <span class="checkbox" style="vertical-align: middle;">
+		       <input type="checkbox" ng-model="item.checked" ng-change="item.$save()">
+		     </span>
+            {{item.name}}
+
+				    <button ng-click="scanCntrl.toggleGroup(item)"  class="button button-small button-positive" style="margin-left:20px;float: right">
+						Info
+				    </button>
+					<span class="item-note">
+				      Aisle Number
+				    </span>
+				     <div class="list card" class="item-accordion"
+                    ng-show="scanCntrl.isGroupShown(item)">
+                    	Bakwas
+                    </div>
+		  </li>
+		</ul>
+	</ion-content>
+	<div class="float-button">
+	  <span class="height-fix" ng-click="scanCntrl.addItem()">
+	    <a class="content">
+	      <i class="ion-plus-round"> </i>
+	    </a>
+	  </span>
+	</div>
+	<div class="bottommsg">
+		<button class="button button-block button-grey" ng-click="scanCntrl.scanBarcode()">Scan</button>
+	</div>
+</ion-view>

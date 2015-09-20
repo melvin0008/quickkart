@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var app=angular.module('starter', ['ionic','ngCordova'])
+var app=angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova','firebase'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -13,7 +13,6 @@ var app=angular.module('starter', ['ionic','ngCordova'])
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -30,14 +29,18 @@ var app=angular.module('starter', ['ionic','ngCordova'])
     abstract: true,
     templateUrl: 'templates/menu.html',
   })
-  .state('app.playlists', {
-    url: '/playlists',
+  .state('app.shoppinglist', {
+    url: '/shoppinglist',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlists.html',
+        templateUrl: 'templates/shoppinglist.html',
       }
     }
   })
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+  })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/login');
 });
