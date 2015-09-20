@@ -2,9 +2,9 @@
   <ion-content>
 	  <ul class="list">
 
-		  <li class="item" ng-repeat="item in scanCntrl.items">
+		  <li class="item" ng-repeat="item in scanCntrl.items" >
 		     <span class="checkbox" style="vertical-align: middle;">
-		       <input type="checkbox" ng-model="item.checked" ng-change="item.$save()">
+		       <input type="checkbox" ng-model="item.checked" ng-change="scanCntrl.update($index)">
 		     </span>
             {{item.name}}
 
@@ -12,7 +12,7 @@
 						Info
 				    </button>
 					<span class="item-note">
-				      Aisle Number
+				      {{item.aisle}}
 				    </span>
 				     <div class="list card" class="item-accordion"
                     ng-show="scanCntrl.isGroupShown(item)">
