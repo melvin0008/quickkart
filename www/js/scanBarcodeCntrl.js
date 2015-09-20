@@ -2,13 +2,6 @@ app.controller("scanBarcodeController", function($firebaseObject,$rootScope,$fir
   var self=this;
   $scope.items=[]
   self.items=$scope.items;
-  // console.log(ItemService.get())
-  // ItemService.get().child('doc').once('value',function(snapshot){
-  //       var docName=snapshot.val()
-  //       // console.log($firebaseArray(FirebaseService.get('Docs/'+docName+'/Items')))
-  //       // $firebaseArray(FirebaseService.get('Docs/'+docName+'/Items')).$bindTo(self,'items');
-
-  //     });
   $rootScope.emailId=window.localStorage['emailId']
 
   FirebaseService.get('Users/'+$rootScope.emailId).child('doc').once('value',function(snapshot){
@@ -49,6 +42,10 @@ app.controller("scanBarcodeController", function($firebaseObject,$rootScope,$fir
     })
   }
 
+  self.shareItem=function(){
+    $scope.modal1.show();
+  }
+
 
   self.scanBarcode = function() {
     /*Scanner*/
@@ -71,6 +68,12 @@ app.controller("scanBarcodeController", function($firebaseObject,$rootScope,$fir
     $scope.modal = modal;
   });
 
+   $ionicModal.fromTemplateUrl('templates/shareItemList.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal1 = modal;
+  });
+
   self.update=function(index){
     var docName=window.localStorage['docName']
     console.log(docName)
@@ -90,6 +93,9 @@ app.controller("scanBarcodeController", function($firebaseObject,$rootScope,$fir
 
  $scope.closeLogin = function() {
       $scope.modal.hide();
+  };
+   $scope.closeShare = function() {
+      $scope.modal1.hide();
   };
 
   self.addItem=function(){

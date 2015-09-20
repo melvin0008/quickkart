@@ -1,4 +1,15 @@
 <ion-view ng-controller="scanBarcodeController as scanCntrl" view-title="Shopping List">
+  <ion-nav-bar class="bar-assertive">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+        <button class="button" ng-click="scanCntrl.shareItem()">
+         Share
+        </button>
+      </ion-nav-buttons>
+ </ion-nav-bar>
   <ion-content>
 	  <ul class="list">
 

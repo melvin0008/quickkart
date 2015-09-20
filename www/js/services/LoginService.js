@@ -31,7 +31,7 @@ return{
 						      $ionicUser.identify(user).then(function(){
 
 						      });
-						      FirebaseService.get('Users').child(emailId).set(user.user_id)
+						      FirebaseService.get('Users').child(emailId).set({'ionicId':user.user_id})
 				     	}
 
 				     })

@@ -17,4 +17,19 @@ app.controller("ItemCntrl", function($rootScope,$scope,$ionicModal,$firebaseArra
     $scope.closeLogin()
     self.item=""
   }
+
+  self.share=function(){
+
+	  	var emailId= self.emailId.split('@')[0]
+		FirebaseService.get('Users/'+emailId).child('ionicId').once('value',function(snapshot){
+		if (snapshot.val()==null)
+		{
+			console.log("User Name Enter kar")
+		}
+		else{
+			FirebaseService.get('Users/'+snapshot.val()).child('doc').set(window.localStorage['docName'])
+		}
+
+	  })
+	}
 });
