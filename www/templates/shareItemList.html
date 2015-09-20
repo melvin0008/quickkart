@@ -1,5 +1,5 @@
 <ion-modal-view>
-  <ion-header-bar>
+  <ion-header-bar class="bar-assertive">
     <h1 class="title">Share</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeShare()">Close</button>
@@ -8,7 +8,7 @@
   <ion-content ng-controller="ItemCntrl as itemCntrl">
     <div class="list">
       <label class="item item-input">
-        <span class="input-label">Peers Email Id:</span>
+        <span class="input-label">Peer Email Id:</span>
         <input type="text" ng-model="itemCntrl.emailId">
       </label>
       <label class="item">

@@ -1,4 +1,4 @@
-app.controller("ItemCntrl", function($rootScope,$scope,$ionicModal,$firebaseArray,FirebaseService) {
+app.controller("ItemCntrl", function($rootScope,$scope,$ionicModal,$firebaseArray,FirebaseService,IonicPushService) {
   var self=this;
   self.add = function(){
     var itemName=self.item
@@ -27,7 +27,9 @@ app.controller("ItemCntrl", function($rootScope,$scope,$ionicModal,$firebaseArra
 			console.log("User Name Enter kar")
 		}
 		else{
-			FirebaseService.get('Users/'+snapshot.val()).child('doc').set(window.localStorage['docName'])
+			FirebaseService.get('Users/'+emailId).child('doc').set(window.localStorage['docName'])
+			$scope.closeShare()
+			// IonicPushService.pushPost(snapshot.val())
 		}
 
 	  })

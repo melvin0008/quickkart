@@ -1,4 +1,4 @@
-<ion-view ng-controller="scanBarcodeController as scanCntrl" view-title="Shopping List">
+<ion-view ng-controller="scanBarcodeController as scanCntrl" view-title="QuickCart - {{emailId}}">
   <ion-nav-bar class="bar-assertive">
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
@@ -27,7 +27,19 @@
 				    </span>
 				     <div class="list card" class="item-accordion"
                     ng-show="scanCntrl.isGroupShown(item)">
-                    	Bakwas
+                    	<div class="row">
+		                  <span class="col">
+		                    Price : {{item.price}}
+		                  </span>
+		                  <span class="col">
+		                    Category : {{item.category}}
+		                  </span>
+		                </div>
+		                <div class="row">
+		                  <span class="col" style="font-size:10px;">
+		                    Description : {{item.description}}
+		                  </span>
+		                </div>
                     </div>
 		  </li>
 		</ul>

@@ -2,8 +2,8 @@ app.controller("scanBarcodeController", function($firebaseObject,$rootScope,$fir
   var self=this;
   $scope.items=[]
   self.items=$scope.items;
+  $scope.emailId=window.localStorage['emailId']
   $rootScope.emailId=window.localStorage['emailId']
-
   FirebaseService.get('Users/'+$rootScope.emailId).child('doc').once('value',function(snapshot){
     var docName=snapshot.val()
     if(docName==null)
@@ -33,7 +33,10 @@ app.controller("scanBarcodeController", function($firebaseObject,$rootScope,$fir
       if (typeof record != 'undefined'){
         record = [record];
         value.aisle=record[0]['Aisle']+'-'+record[0]['Shelf']
-        console.log(value.aisle)
+        value.price=record[0]['Price']
+        value.category=record[0]['Category']
+        value.description=record[0]['Description']
+        value.quantity=record[0]['Quantity']
       }
       else
       {
