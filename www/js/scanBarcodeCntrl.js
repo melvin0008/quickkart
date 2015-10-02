@@ -87,6 +87,15 @@ app.controller("scanBarcodeController", function($firebaseObject,$rootScope,$fir
         console.log(self.items[index].name,childSnapshot.val().name)
         if(self.items[index].name==childSnapshot.val().name){
           FirebaseService.get('Docs/'+docName+'/Items/'+childSnapshot.key()).child('checked').set(self.items[index].checked)
+          var list = $firebaseArray(FirebaseService.get('Docs/'+docName+'/Items/'+childSnapshot.key()));
+          list.$loaded(
+            function(x) {
+              console.log(x)
+              x === list;
+              // self.items=list;
+            }, function(error) {
+              console.error("Error:", error);
+          });
         }
         $scope.$apply();
       });
