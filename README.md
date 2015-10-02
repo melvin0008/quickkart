@@ -16,4 +16,7 @@ Technologies Used:
 [Ionic Framework](http://ionicframework.com/)    
 [Firebase](https://www.firebase.com/)
 
+|  List after retrieval of aisle number  | Detailed view of item |     
+| :-------------------------: | :-------------------------: |      
+| ![demo](../master/resources/image1.png?raw=true) | ![demo](../master/resources/image2.png?raw=true) | 
 
